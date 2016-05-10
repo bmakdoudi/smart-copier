@@ -59,8 +59,8 @@ public class SmartCopier {
 		// Find deleted files
 		if (newFile.isDirectory() && newFile.exists()) {
 			for (File dst : newFile.listFiles()) {
-				File src = new File(oldFile, dst.getName());
-				if (!src.exists()) {
+				File src = new File(oldf, dst.getCanonicalFile().getName());
+                			if (!src.exists() || !src.getCanonicalPath().endsWith(src.getName()) ) {
 					LOGGER.debug(dst + " deleted");
 					visitor.fileDeleted(src, dst);
 				}
